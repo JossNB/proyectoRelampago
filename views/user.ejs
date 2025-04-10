@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador de Palabras en PDFs</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+  <style>
+    /* Contenedor del buscador */
+.search-container {
+  border: 1px solid #7b4e36;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  color: #4a2c1a;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Etiqueta del input */
+.search-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Input de búsqueda */
+.search-container input[type="text"] {
+  padding: 10px;
+  border: 1px solid #7b4e36;
+  border-radius: 6px;
+  width: 250px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Botón de búsqueda */
+.search-container button {
+  padding: 10px 20px;
+  background-color: #f8b8a0;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #4a2c1a;
+  transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+  background-color: #f39a7f;
+}
+
+/* Contenedor de resultados */
+#results {
+  border: 1px solid #7b4e36;
+  border-radius: 10px;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  color: #4a2c1a;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Estilo individual para cada resultado */
+.pdf-item {
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
+/* Título del archivo PDF */
+.pdf-item h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #198f9b;
+  margin-bottom: 5px;
+}
+
+/* Texto de cantidad de coincidencias */
+.pdf-item p {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+/* Lista de coincidencias */
+.pdf-item ul {
+  list-style: disc;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  color: #4a2c1a;
+}
+
+/* Enlace para abrir PDF */
+.pdf-item a {
+  color: #198f9b;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.pdf-item a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h2 style="color: #2f99ab;  font-family: 'Brush Script MT', cursive;  font-size: 40px; text-align: center; ">Sistema de archivos PDF</h2>
+  </header>
+
+  <h1  style="font-family: 'Bree Serif', serif;">Bienvenido, <%= user.username %> (Usuario)</h1>
+  <a href="/logout" class="btn-cerrar-sesion">Cerrar sesión</a>
+  <hr>
+  <div class="search-container">
+    <label for="searchWord">Palabra/Frase a buscar:</label>
+    <input type="text" id="searchWord" placeholder="Ingrese la palabra">
+    <button id="searchBtn">Buscar</button>
+  </div>
+
+  <div id="results">
+    <!-- Aquí se mostrarán los resultados de la búsqueda -->
+  </div>
+
+  <script>
+    $('#searchBtn').on('click', function() {
+      const word = $('#searchWord').val().trim();
+      if (!word) {
+        alert('Por favor, ingresa una palabra o frase a buscar.');
+        return;
+      }
+      
+      $.ajax({
+        url: '/search',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ searchWord: word }),
+        success: function(response) {
+          if (response.success) {
+            const resultsDiv = $('#results');
+            resultsDiv.empty();
+            const data = response.data;
+            if (data.length === 0) {
+              resultsDiv.html('<p>No se encontró la palabra en ningún PDF.</p>');
+            } else {
+              data.forEach(result => {
+                const pdfName = result.pdfName;
+                const count = result.count;
+                let snippetHtml = '';
+                result.snippets.forEach(snip => {
+                  snippetHtml += `<li>${snip}</li>`;
+                });
+                const pdfItem = `
+                  <div class="pdf-item">
+                    <h3>Archivo: ${pdfName}</h3>
+                    <p>Veces encontradas: ${count}</p>
+                    <ul>${snippetHtml}</ul>
+                    <p><a href="/documentos/${pdfName}" target="_blank">Abrir PDF</a></p>
+                  </div>
+                `;
+                resultsDiv.append(pdfItem);
+              });
+            }
+          } else {
+            alert(response.message || 'Error en la respuesta del servidor');
+          }
+        },
+        error: function(err) {
+          console.error('Error AJAX:', err);
+          alert('Ocurrió un error al procesar la búsqueda');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

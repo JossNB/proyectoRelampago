@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administrador - Gestión de PDFs</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h2 style="color: #2f99ab;  font-family: 'Brush Script MT', cursive;  font-size: 40px; text-align: center; ">Sistema de archivos PDF</h2>
+  </header>
+    <h1 style="font-family: 'Bree Serif', serif;">Bienvenido, <%= user.username %> (Administrador)</h1>
+    <a href="/logout" class="btn-cerrar-sesion">Cerrar sesión</a>
+    <hr>
+    <h2 style="text-align: center; font-family: 'Bree Serif', serif;">Subir PDF</h2>
+    <form action="/admin/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="pdf" accept="application/pdf" required>
+        <button type="submit" style="font-family: 'Bree Serif', serif;">Subir PDF</button>
+    </form>
+    <hr>
+    <h2 style="font-family: 'Bree Serif', serif;">Lista de archivos PDFs</h2>
+    <% if (pdfList.length > 0) { %>
+      <table border="1" cellpadding="8">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre del Archivo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pdfList.forEach(pdf => { %>
+            <tr>
+              <td><%= pdf.id %></td>
+              <td><%= pdf.originalName %></td>
+              <td>
+                <a href="/uploads/<%= pdf.filename %>" target="_blank">Ver</a>
+                <a href="/admin/delete/<%= pdf.id %>" onclick="return confirm('¿Eliminar este PDF?');">Eliminar</a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>No hay PDFs subidos.</p>
+    <% } %>
+</body>
+</html>

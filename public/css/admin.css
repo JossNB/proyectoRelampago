@@ -1,0 +1,121 @@
+/* styles.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f5f3;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #5d4037;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #5d4037;
+    font-size: 22px;
+    margin-top: 30px;
+    border-bottom: 2px solid #ffc8b8;
+    padding-bottom: 5px;
+}
+
+a {
+    color: #5d4037;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #8d6e63;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #ffc8b8;
+    margin: 20px 0;
+}
+
+button, input[type="submit"] {
+    background-color: #ffc8b8;
+    color: #5d4037;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #ffab91;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+th {
+    background-color: #ffc8b8;
+    color: #5d4037;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tr:hover {
+    background-color: #fff0eb;
+}
+
+.logout-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 15px;
+    background-color: #efebe9;
+    border-radius: 4px;
+}
+
+.logout-link:hover {
+    background-color: #d7ccc8;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+    display: block;
+}
+
+.btn-cerrar-sesion {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffc9b9;
+    color: #5d4037;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px; /* Bordes redondeados */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efecto de transición */
+  }
+  
+  .btn-cerrar-sesion:hover {
+    background-color: #ffab91; /* Fondo más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de "agrandado" al pasar el mouse */
+  }
+  
+  .btn-cerrar-sesion:active {
+    transform: scale(0.98); /* Efecto al hacer clic */
+  }
+  

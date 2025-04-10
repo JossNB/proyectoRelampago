@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de usuarios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Iconos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background-color: white;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+       }
+       .register-form {
+        background-color: #e7f1f0;
+        border: 1px solid #8ba4a8;
+    padding: 30px;
+    border-radius: 10px;
+    width: 600px;
+    height: 300px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    margin-left: 300px;
+}
+/* Añadir estilos para las columnas */
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+/* Crear dos columnas dentro del formulario */
+.input-column {
+    display: flex;
+    flex-direction: column;
+    width: 45%; /* Ajusta el tamaño de las columnas */
+    margin-right:40px;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-container input {
+        width: 100%;
+        padding: 10px 40px 10px 15px; /* Ajusta el padding derecho */
+        border: 1px solid #000;
+        background: white;
+        color: black !important;
+        font-size: 14px;
+}
+
+.input-container input::placeholder {
+    color: black !important; /* Cambia el color del placeholder a blanco */
+    font-weight: bold;
+}
+
+.input-container i {
+        position: absolute;
+        right: 15px; /* Ubica el icono dentro del campo sin superponer */
+        top: 50%;
+        transform: translateY(-50%);
+        color: #2f99ab;
+}
+ /* Separa las columnas */
+ .form-registro {
+     display: flex;
+     justify-content: space-between;
+     background-color: #e7f1f0;
+     height: 100px;
+ }
+ .btn-registrarse {
+     background-color: #ffc9b9;
+     color: #5d4037;
+     border: none;
+     padding: 10px 20px;
+     border-radius: 25px;
+     cursor: pointer;
+     font-weight: bold;
+     margin-top: 20px;
+     width: 200px;
+     margin-left: 50px;
+     font-family: 'Bree Serif', serif;
+     font-size: 16px;
+ }
+    </style>
+</head>
+<body>
+  <header>
+    <h2 style="color: #2f99ab;  font-family: 'Brush Script MT', cursive;  font-size: 40px; ">Sistema de archivos PDF</h2>
+  </header>
+  <section class="register-form">
+    <h1 style="color: black;  font-family: 'Bree Serif', serif; ;">Regístrate</h1>
+    <% if (typeof mensaje !== 'undefined') { %>
+      <p style="color: green;"><%= mensaje %></p>
+    <% } %>
+  
+    <% if (typeof error !== 'undefined') { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form class="form-registro" action="/registro" method="post">
+      <div class="input-column">
+        <div class="input-group">
+          <div class="input-container">
+            <input type="text" name="Nombre" placeholder="Nombre" required>
+            <i class="fa fa-user"></i>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-container">
+            <input type="email" name="Correo" placeholder="Correo electrónico" required>
+            <i class="fa fa-envelope"></i>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-container" style="position: relative;">
+            <select name="Rol" style="width: 100%; padding: 10px 30px 10px 10px; font-size: 16px; border: 1px solid #000; background-color: white; appearance: none; -webkit-appearance: none; -moz-appearance: none;">
+              <option value="Administrador">Administrador</option>
+              <option value="Usuario">Usuario</option>
+            </select>
+            <!-- Ícono personalizado -->
+            <i class="fa fa-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #2f99ab; pointer-events: none;"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-column">
+        <div class="input-group">
+          <div class="input-container">
+            <input type="text" name="Apellidos" placeholder="Apellidos" required>
+            <i class="fa fa-user"></i>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-container">
+            <input type="password" name="Password" placeholder="Contraseña" required>
+            <i class="fa fa-eye" id="toggleIcon" onclick="togglePasswordVisibility()"></i>
+          </div>
+        </div>
+        <button class="btn-registrarse" type="submit">Registrar</button>
+      </div>
+    </form>
+  </section>
+</body>
+</html>

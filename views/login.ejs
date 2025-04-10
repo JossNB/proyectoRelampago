@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+       body {
+        background-color: white;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+       }
+       .iniciosesion-form {
+        background-color: #e7f1f0;
+        border: 1px solid #8ba4a8;
+        padding: 30px;
+        border-radius: 10px;
+        width: 400px;
+        height: 400px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        box-sizing: border-box;
+        margin-left: 440px;
+      }
+      .form-iniciosesion {
+        display: flex;
+        justify-content: space-between;
+        background: #0e0e0e;
+        background-color: rgba(0, 0, 0, 0.0);
+        width: 100px;
+        box-sizing: border-box;            
+      }
+      .input-group {
+     width: 80%; /* Los inputs deben ocupar todo el ancho disponible */
+     display: flex;
+     justify-content: space-between;
+     margin-bottom: 30px;
+     margin-left: 40px;
+ }
+
+ .input-container {
+     position: relative;
+     width: 100%;
+ }
+
+ .input-container input {
+         width: 100%;
+         padding: 10px 40px 10px 15px; /* Ajusta el padding derecho */
+         border: 1px solid #000;
+         background: white;
+         color: black !important;
+         font-size: 14px;
+ }
+
+ .input-container input::placeholder {
+     color: black !important; /* Cambia el color del placeholder a blanco */
+     font-weight: bold;
+ }
+
+
+ .input-container i {
+     position: absolute;
+     right: -40px; /* Ubica el icono dentro del campo sin superponer */
+     top: 50%;
+     transform: translateY(-50%);
+     color: #2f99ab;
+ }
+ .btn-ingresar {
+     background-color: #ffc9b9;
+     color: #5d4037;
+     border: none;
+     padding: 10px 20px;
+     border-radius: 25px;
+     cursor: pointer;
+     font-weight: bold;
+     margin-top: 5px;
+     width: 200px;
+     margin-left: 70px;
+     margin-bottom: 20px;
+     font-family: 'Bree Serif', serif;
+     font-size: 16px;
+ }
+ .texto-info{
+     display: inline;
+     margin-right: 1px;
+     font-size: 14px;
+     color: black;
+ }
+ .link-registro {
+    text-decoration: none;
+    color: #2f99ab;
+    display: inline;
+    font-size: 14px;
+}
+    </style>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+      <!-- Iconos de Bootstrap -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h2 style="color: #2f99ab;  font-family: 'Brush Script MT', cursive;  font-size: 40px; ">Sistema de archivos PDF</h2>
+  </header>
+  <section class="iniciosesion-form">
+    <h1 style="color: black;  font-family: 'Bree Serif', serif; ;">Iniciar Sesión</h1>
+    <p class="texto-info">¿No tienes cuenta?</p><a href="/registro" class="link-registro"> Regístrate</a>
+    <br />
+    <br />
+  <% if (typeof error !== 'undefined') { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+  <form class="form-iniciosesion" action="/login" method="post">
+    <div class="input-column">
+      <div class="input-group">
+        <div class="input-container">
+          <input type="text" name="Correo" placeholder="Correo electrónico" required>
+          <i class="fa fa-envelope"></i>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-container">
+          <input type="password" name="Password" id="contraseñaInput" placeholder="Contraseña" required>
+          <i class="fa fa-eye" id="toggleIcon" onclick="togglePasswordVisibility()"></i>
+        </div>
+      </div>
+      <button type="submit" class="btn-ingresar">Iniciar</button>
+    </div>  
+  </form>
+  </section>
+  <script>
+     function togglePasswordVisibility() {
+     var passInput = document.getElementById("contraseñaInput");
+     var icon = document.getElementById("toggleIcon");
+
+     if (passInput.type === "Password") {
+         passInput.type = "text";
+         // Cambiamos el ícono al ojo tachado
+         icon.classList.remove("fa-eye");
+         icon.classList.add("fa-eye-slash");
+             } else {
+         passInput.type = "Password";
+         // Cambiamos el ícono al ojo normal
+         icon.classList.remove("fa-eye-slash");
+         icon.classList.add("fa-eye");
+             }
+         }
+  </script>
+</body>
+</html>
